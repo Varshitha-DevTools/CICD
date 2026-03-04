@@ -1,0 +1,40 @@
+name: CICD
+on:
+  push:
+jobs:
+  Stage_One:
+    name: Stage One
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: echo "Initial setup complete."
+  Stage_Two:
+    name: Stage Two
+    runs-on: ubuntu-latest
+    needs: Stage_One
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+#     # This item has no matching transformer
+#     - catchError:
+#       - key: buildResult
+#         value:
+#           isLiteral: true
+#           value: SUCCESS
+#       - key: stageResult
+#         value:
+#           isLiteral: true
+#           value: FAILURE
+  Stage_Three:
+    name: Stage Three
+    runs-on: ubuntu-latest
+    needs: Stage_Two
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: echo "I am running because Stage Two used catchError!"
